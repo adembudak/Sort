@@ -52,11 +52,46 @@ TEST_CASE("Insertion: Sort with predicate") {
   REQUIRE_EQ(test, expected);
 }
 
-TEST_CASE("Insertion: range impl") {
+TEST_CASE("Insertion: Range implementation correctness") {
   std::vector<int> base(1'000);
   stdr::generate(base, engine);
 
-  sort::ranges::insertion(base);
+  auto test = base;
+  auto expected = base;
+  stdr::sort(expected);
 
-  CHECK(stdr::is_sorted(base));
+  sort::ranges::insertion(test);
+  CHECK(stdr::is_sorted(test));
+
+  REQUIRE_EQ(test, expected);
+}
+
+TEST_CASE("Insertion: Ranges with predicate") {
+  std::vector<int> base(1'000);
+  stdr::generate(base, engine);
+
+  auto comp = [](const int i, const int j) -> bool { return i < j; };
+
+  auto expected = base;
+  stdr::sort(expected, comp);
+
+  auto test = base;
+  sort::ranges::insertion(test, comp);
+
+  REQUIRE_EQ(test, expected);
+}
+
+TEST_CASE("Insertion: Ranges impl. reverse sort") {
+  std::vector<int> base(1'000);
+  stdr::generate(base, engine);
+
+  auto expected = base;
+  stdr::sort(expected, std::greater{});
+
+  auto test = base;
+  sort::ranges::insertion(test, std::greater{});
+
+  CHECK(stdr::is_sorted(test, std::greater{}));
+
+  REQUIRE_EQ(test, expected);
 }
