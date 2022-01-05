@@ -32,6 +32,7 @@ TEST_CASE("Insertion: Reverse sort") {
 
   auto test = base;
   sort::insertion(begin(test), end(test), std::greater{});
+  CHECK(stdr::is_sorted(test, std::greater{}));
 
   REQUIRE_EQ(test, expected);
 }
