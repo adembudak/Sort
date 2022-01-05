@@ -51,3 +51,12 @@ TEST_CASE("Insertion: Sort with predicate") {
 
   REQUIRE_EQ(test, expected);
 }
+
+TEST_CASE("Insertion: range impl") {
+  std::vector<int> base(1'000);
+  stdr::generate(base, engine);
+
+  sort::ranges::insertion(base);
+
+  CHECK(stdr::is_sorted(base));
+}
