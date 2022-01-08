@@ -34,7 +34,7 @@ struct insertion_fn {
 
     std::size_t N = std::ranges::distance(first, last);
 
-    I last_iter = std::ranges::next(last);
+    I last_iter = std::ranges::next(first, last);
 
     for (std::size_t i = 1; i < N; ++i) {
       for (std::size_t j = i; j > 0 && comp(*(first + j), *(first + j - 1)); --j) {

@@ -18,3 +18,5 @@ find_package (doctest QUIET REQUIRED CONFIG)
 
 add_sort_algorithm (insertion)
 add_sort_test (insertion_test tests/insertion_test.cpp)
+
+add_sort_algorithm (selection)
